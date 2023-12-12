@@ -10,7 +10,7 @@
     <p-fieldset legend="Information client " [toggleable]="true" [collapsed]="true">
         <div style=" margin-left: 20%; ">
             <span class="p-float-label">
-                <input pInputText id="username" style="width: 240px;" />
+                <input pInputText id="username" style="width: 240px;" [(ngModel)]="cin"/>
                 <label htmlFor="username">N CIN</label>
             </span>
             <br>
@@ -22,7 +22,7 @@
             <br>
             <br>
             <span class="p-float-label">
-                <p-calendar [showIcon]="true" [showButtonBar]="true"></p-calendar>
+                <p-calendar [showIcon]="true" [showButtonBar]="true"[(ngModel)]="dateNs"></p-calendar>
                 <label htmlFor="username">Date de naissance</label>
             </span>
 
@@ -48,13 +48,13 @@
 
             <div style="margin-left:40%; margin-top: -6%;">
             <span class="p-float-label">
-                <input pInputText id="username" style="width: 110px;" />
+                <input pInputText id="username" style="width: 110px;" [(ngModel)]="nom"/>
                 <label htmlFor="username">Nom</label>
             </span>
             <br>
             <br>
             <span class="p-float-label">
-                <input pInputText id="username" style="width: 110px;" />
+                <input pInputText id="username" style="width: 110px;" [(ngModel)]="prenom"/>
                 <label htmlFor="username">Prenom</label>
             </span>
             </div>

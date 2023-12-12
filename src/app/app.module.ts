@@ -17,6 +17,7 @@ import { FileUploadModule } from 'primeng/fileupload';
 import { DropdownModule } from 'primeng/dropdown';
 import { ChartModule } from 'primeng/chart';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,9 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
     InputTextareaModule,
     FileUploadModule,
     DropdownModule,
-    FieldsetModule
+    FieldsetModule,
+    FormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

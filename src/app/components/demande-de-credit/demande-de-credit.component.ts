@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { DemandeCreditService } from '../service/DemandeService/demande-credit.service';
+import { Client } from '../models/Client';
 
 @Component({
   selector: 'app-demande-de-credit',
@@ -8,8 +11,19 @@ import { Component, OnInit } from '@angular/core';
 export class DemandeDeCreditComponent implements OnInit {
 
   data: any;
+  client!:Client;
+ 
+  cin!:String;
+  nom!:String;
+  prenom!:String;
+  dateNs!:Date;
+  situationFamiliale!:String;
 
+  input1Valu!: string;
+  input2Value!: string;
+  input3Value!: string;
   options: any;
+  constructor(private _router:Router , private dc:DemandeCreditService) { }
 
   ngOnInit() {
       const documentStyle = getComputedStyle(document.documentElement);
@@ -49,5 +63,18 @@ export class DemandeDeCreditComponent implements OnInit {
               }
           }
       };
+  }
+  getClient(cin :string){
+    this.dc.getClient(cin).subscribe( (data:any) =>{
+        console.log(data)
+        this.client=data;
+        this.dateNs=this.client.dateNs;
+        this.situationFamiliale=this.client.situationFamiliale;
+        this.nom=this.client.nom;
+        this.prenom=this.client.prenom
+       },
+      (error:any) => console.log(error)); }
+    
+  onInput1Change() {
   }
 }
