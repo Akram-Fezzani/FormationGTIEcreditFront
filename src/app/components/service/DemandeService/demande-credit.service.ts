@@ -12,4 +12,7 @@ export class DemandeCreditService {
   getClient(cin:String): Observable<any> { 
     return this.http.get('http://localhost:8081/client/retrieveClientByCin/'+cin );
   }
+  getCompteByClientCin(cin:String): Observable<any> { 
+    return this.http.get('http://localhost:8081/Compte/CompteByUserCin/'+cin );
+  }
 }

@@ -31,7 +31,7 @@ import { HttpClientModule } from '@angular/common/http';
     BrowserAnimationsModule,
     ChartModule,
     //FormsModule,
-    //ReactiveFormsModule,
+    ReactiveFormsModule,
     InputTextModule,
     ButtonModule,
     TableModule, 
