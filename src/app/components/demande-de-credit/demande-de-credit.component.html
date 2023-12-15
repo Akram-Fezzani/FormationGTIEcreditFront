@@ -27,8 +27,21 @@
             <br>
             <br>
             <span class="p-float-label">
-                <p-dropdown   [editable]="true" optionLabel="name"></p-dropdown>
-                <label htmlFor="username">N du compte</label>
+                <p-dropdown
+                id="compte"
+                style="width: 240px;"
+                formControlName="selectedValue"
+                [options]="comptes"
+                [(ngModel)]="compte"
+                optionLabel="numcompte"
+              >
+            </p-dropdown>
+                <label htmlFor="compte">N du compte</label>
+                <div *ngIf="submitted && f.cin.errors" class="invalid-feedback">
+                    <div *ngIf="f.cin.errors.required" style="color: red;">compte is required</div>
+                  
+                   
+                  </div>
             </span>
             <br>
             <br>
@@ -56,12 +69,12 @@
                 <input pInputText id="nom" style="width: 110px;" formControlName="nom" [ngClass]="{ 'is-invalid': submitted && f.nom.errors }"/>
                 <label htmlFor="nom">Nom</label>
                 <div *ngIf="submitted && f.nom.errors" class="invalid-feedback">
-                    <div *ngIf="f.nom.errors.required" style="color: red;">Cin is required</div>
+                    <div *ngIf="f.nom.errors.required" style="color: red;">Nom is required</div>
                     <div *ngIf="f.nom.errors.minlength" style="color: red;">
-                        Username must be at least 3 characters
+                        Nom must be at least 3 characters
                     </div>
                     <div *ngIf="f.nom.errors.maxlength" style="color: red;">
-                        Username must not exceed 20 characters
+                        Nom must not exceed 20 characters
                     </div>
                   </div>
             </span>
@@ -71,12 +84,12 @@
                 <input pInputText id="prenom" style="width: 110px;"  formControlName="prenom" [ngClass]="{ 'is-invalid': submitted && f.prenom.errors }"/>
                 <label htmlFor="prenom">Prenom</label>
                 <div *ngIf="submitted && f.prenom.errors" class="invalid-feedback">
-                    <div *ngIf="f.prenom.errors.required" style="color: red;">Cin is required</div>
+                    <div *ngIf="f.prenom.errors.required" style="color: red;">Prenom is required</div>
                     <div *ngIf="f.prenom.errors.minlength" style="color: red;">
-                        Username must be at least 3 characters
+                        Prenom must be at least 3 characters
                     </div>
                     <div *ngIf="f.prenom.errors.maxlength" style="color: red;">
-                        Username must not exceed 20 characters
+                        Prenom must not exceed 20 characters
                     </div>
                   </div>
             </span>

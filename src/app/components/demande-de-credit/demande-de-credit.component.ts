@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { DemandeCreditService } from '../service/DemandeService/demande-credit.service';
 import { Client } from '../models/Client';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { SelectItem } from 'primeng/api';
+import { Compte } from '../models/Compte';
 
 @Component({
   selector: 'app-demande-de-credit',
@@ -11,10 +13,12 @@ import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/fo
 })
 export class DemandeDeCreditComponent implements OnInit {
 
+  compte:any
   client!:Client;
-  Compte!:any;
+  comptes: Compte[] = [];
   form!: FormGroup;
   submitted = false;
+  listData!: SelectItem[];
 
   constructor(private _router:Router , private dc:DemandeCreditService,private fb: FormBuilder) { }
 
@@ -27,9 +31,12 @@ getClient(){
 }
 
 getCompteByClientCin(){
-        this.dc.getCompteByClientCin("50").subscribe( (data:Client) =>{
+        this.dc.getCompteByClientCin("50").subscribe( (data:Compte[]) =>{
             console.log(data)
-            this.Compte=data;
+            this.comptes=data;
+           this.listData = data.map(comptes => ({label: comptes.id, value: comptes.numcompte}));
+           //this.compte = data;
+
         },
         (error:any) => console.log(error)); 
 }
@@ -67,6 +74,10 @@ ngOnInit() {
             prenom: [
                 '', 
                 [Validators.required, Validators.minLength(3), Validators.maxLength(15)],
+                ],
+            compte: [
+                '',
+                Validators.required
                 ],
         });
 }
