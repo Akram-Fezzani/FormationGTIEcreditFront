@@ -12,7 +12,7 @@ import { Compte } from '../models/Compte';
   styleUrls: ['./demande-de-credit.component.css']
 })
 export class DemandeDeCreditComponent implements OnInit {
-
+  typeCredit:any
   compte:any
   client!:Client;
   comptes: Compte[] = [];
@@ -41,6 +41,16 @@ getCompteByClientCin(){
         (error:any) => console.log(error)); 
 }
 
+getTypeCredit(){
+        this.dc.getTypeCrdit().subscribe( (data:any[]) =>{
+            console.log(data)
+            this.typeCredit=data;
+           this.listData = data.map(typeCredit => ({label: typeCredit.id, value: typeCredit.typeCredt}));
+           //this.compte = data;
+
+        },
+        (error:any) => console.log(error)); 
+}
 
 onSubmit(): void {
         this.submitted = true;
@@ -60,6 +70,7 @@ onReset(): void {
 }
 
 ngOnInit() {
+    this.getTypeCredit()
         this.getClient();
         this.getCompteByClientCin();
         this.form = this.fb.group({

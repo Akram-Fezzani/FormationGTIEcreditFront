@@ -10,7 +10,11 @@
     <p-fieldset legend="Information client " [toggleable]="true" [collapsed]="true">
         <div style=" margin-left: 20%; ">
             <span class="p-float-label">
-                <input pInputText id="cin"  style="width: 240px;" formControlName="cin" [ngClass]="{ 'is-invalid': submitted && f.cin.errors }"
+                <input pInputText id="cin"    
+                [(ngModel)]="client.cin"
+                style="width: 240px;" 
+                formControlName="cin" 
+                [ngClass]="{ 'is-invalid': submitted && f.cin.errors }"
                 />
                 <label htmlFor="cin">N CIN</label>
                 <div *ngIf="submitted && f.cin.errors" class="invalid-feedback">
@@ -23,13 +27,11 @@
                     </div>
                   </div>
             </span>
-           
             <br>
             <br>
             <span class="p-float-label">
                 <p-dropdown
                 id="compte"
-                style="width: 240px;"
                 formControlName="selectedValue"
                 [options]="comptes"
                 [(ngModel)]="compte"
@@ -39,8 +41,6 @@
                 <label htmlFor="compte">N du compte</label>
                 <div *ngIf="submitted && f.cin.errors" class="invalid-feedback">
                     <div *ngIf="f.cin.errors.required" style="color: red;">compte is required</div>
-                  
-                   
                   </div>
             </span>
             <br>
@@ -94,13 +94,16 @@
                   </div>
             </span>
             </div>   
-
     </p-fieldset>
-
     <p-fieldset legend="Dossier credit" [toggleable]="true" [collapsed]="true">
         <div style=" margin-left: 30%; ">
                     <span class="p-float-label">
-                        <p-dropdown   [editable]="true" optionLabel="name"></p-dropdown>
+                        <p-dropdown    id="compte"
+                        style="width: 240px;"
+                        formControlName="selectedValue"
+                        [options]="typeCredit"
+                        [(ngModel)]="typeCredit"
+                        optionLabel="typeCredt"></p-dropdown>
                         <label htmlFor="username">Type credit</label>
                     </span>
             <br>
@@ -109,7 +112,6 @@
                         <p-dropdown   [editable]="true" optionLabel="name"></p-dropdown>
                         <label htmlFor="username">Unite</label>
                     </span>
-           
         </div>
         <div style=" margin-left: 50%; margin-top: -7%">
                     <span class="p-float-label">
