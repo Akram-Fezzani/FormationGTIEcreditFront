@@ -1,0 +1,58 @@
+<p-fieldset>
+    <ng-template pTemplate="header">
+        <div class="flex align-items-center text-primary">
+            <span class="pi pi-user mr-2"></span>
+            <span class="font-bold text-lg">Ajouter un garantie</span>
+        </div>     
+    </ng-template>
+    <form [formGroup]="garantieForm" >
+        <span class="p-float-label">
+            <input pInputText
+            id="montant"    
+            style="width: 240px;" 
+            formControlName="montant" 
+            />
+            <label htmlFor="montant">Montant</label>
+        </span>
+        <br>
+        <br>
+        <span class="p-float-label">
+            <p-dropdown
+                id="typeGar"
+                formControlName="typeGar"
+                [options]="typeGars"
+                [(ngModel)]="typeGar"
+                optionLabel="typeGarantie">
+            </p-dropdown>
+            <label htmlFor="typeGar">Type Garantie</label>
+        </span>
+        <br>
+        <br>
+        <span class="p-float-label">
+            <p-dropdown
+                id="nature"
+                formControlName="nature"
+                [options]="natures"
+                [(ngModel)]="nature"
+                optionLabel="nature">
+            </p-dropdown>
+            <label htmlFor="nature">Nature</label>
+        </span>
+        <br>
+        <br>
+        <span class="p-float-label">
+            <p-dropdown
+                id="devise"
+                formControlName="devise"
+                [options]="devises"
+                [(ngModel)]="devise"
+                optionLabel="devise">
+            </p-dropdown>
+            <label htmlFor="devise">Devise</label>
+        </span>
+    
+        <p-button type="submit" label="Register" severity="success" (onClick)="onSubmit()"></p-button>
+</form>
+</p-fieldset>
+
+

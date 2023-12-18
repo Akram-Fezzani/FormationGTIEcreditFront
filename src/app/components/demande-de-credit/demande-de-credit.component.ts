@@ -9,7 +9,7 @@ import { SituationFamiliale } from '../models/SituationFamiliale';
 import { TypeCredit } from '../models/TypeCredit';
 import { Unite } from '../models/Unite';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { GarantieDialogComponent } from 'src/app/garantie-dialog/garantie-dialog.component';
+import { GarantieDialogComponent } from 'src/app/components/garantie-dialog/garantie-dialog.component';
 
 @Component({
   selector: 'app-demande-de-credit',
@@ -99,9 +99,8 @@ get f(): { [key: string]: AbstractControl } {
 openDialog() {
    // Open the dialog and pass data
    const ref: DynamicDialogRef = this.dialogService.open(GarantieDialogComponent, {
-    header: 'Your Dialog Title',
     width: '70%',
-    height:'70%',
+    height:'60%',
     contentStyle: { 'max-height': '500px', overflow: 'auto' },
     baseZIndex: 10000,
     data: { display: true }, // Pass data to the dialog

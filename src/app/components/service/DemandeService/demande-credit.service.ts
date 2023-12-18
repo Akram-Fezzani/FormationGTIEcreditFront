@@ -26,5 +26,17 @@ export class DemandeCreditService {
   getUnite(): Observable<any> { 
     return this.http.get('http://localhost:8081/Unite/getUnite' );
   }
+
+  getTypeGarantie(): Observable<any> { 
+    return this.http.get('http://localhost:8081/TypeGarantie/getTypeGarantie');
+  }
   
+  getNature(): Observable<any> { 
+    return this.http.get('http://localhost:8081/Nature/getNatures');
+  }
+
+  getDevise(): Observable<any> { 
+    return this.http.get('  http://localhost:8081/Devise/getDevise');
+  }
+
 }

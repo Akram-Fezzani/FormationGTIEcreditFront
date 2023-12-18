@@ -19,7 +19,7 @@ import { ChartModule } from 'primeng/chart';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { HttpClientModule } from '@angular/common/http';
 import { DialogModule } from 'primeng/dialog';
-import { GarantieDialogComponent } from './garantie-dialog/garantie-dialog.component';
+import { GarantieDialogComponent } from './components/garantie-dialog/garantie-dialog.component';
 import { DialogService } from 'primeng/dynamicdialog';
 
 @NgModule({
