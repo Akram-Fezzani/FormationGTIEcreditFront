@@ -19,4 +19,12 @@ export class DemandeCreditService {
   getTypeCrdit(): Observable<any> { 
     return this.http.get('http://localhost:8081/TypeCredit/getTypeCredit' );
   }
+
+  getSituationFamilialeByCin(cin:String): Observable<any> { 
+    return this.http.get('http://localhost:8081/situationFamiliale/retrieveSituationFamilialeByCin/'+cin );
+  }
+  getUnite(): Observable<any> { 
+    return this.http.get('http://localhost:8081/Unite/getUnite' );
+  }
+  
 }

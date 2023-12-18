@@ -18,12 +18,16 @@ import { DropdownModule } from 'primeng/dropdown';
 import { ChartModule } from 'primeng/chart';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { HttpClientModule } from '@angular/common/http';
+import { DialogModule } from 'primeng/dialog';
+import { GarantieDialogComponent } from './garantie-dialog/garantie-dialog.component';
+import { DialogService } from 'primeng/dynamicdialog';
 
 @NgModule({
   declarations: [
     AppComponent,
     DemandeDeCreditComponent,
-    TableComponent
+    TableComponent,
+    GarantieDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -42,9 +46,10 @@ import { HttpClientModule } from '@angular/common/http';
     DropdownModule,
     FieldsetModule,
     FormsModule,
+    DialogModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [DialogService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

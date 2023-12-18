@@ -6,12 +6,11 @@
         </div>     
     </ng-template>
     <form [formGroup]="form" (ngSubmit)="onSubmit()">
-
     <p-fieldset legend="Information client " [toggleable]="true" [collapsed]="true">
         <div style=" margin-left: 20%; ">
             <span class="p-float-label">
-                <input pInputText id="cin"    
-                [(ngModel)]="client.cin"
+                <input pInputText
+                id="cin"    
                 style="width: 240px;" 
                 formControlName="cin" 
                 [ngClass]="{ 'is-invalid': submitted && f.cin.errors }"
@@ -31,17 +30,16 @@
             <br>
             <span class="p-float-label">
                 <p-dropdown
-                id="compte"
-                formControlName="selectedValue"
-                [options]="comptes"
-                [(ngModel)]="compte"
-                optionLabel="numcompte"
-              >
-            </p-dropdown>
+                    id="compte"
+                    formControlName="compte"
+                    [options]="comptes"
+                    [(ngModel)]="compte"
+                    optionLabel="numcompte">
+                </p-dropdown>
                 <label htmlFor="compte">N du compte</label>
                 <div *ngIf="submitted && f.cin.errors" class="invalid-feedback">
                     <div *ngIf="f.cin.errors.required" style="color: red;">compte is required</div>
-                  </div>
+                </div>
             </span>
             <br>
             <br>
@@ -60,13 +58,24 @@
             <br>
             <br>
             <span class="p-float-label">
-                <input pInputText id="situationFamiliale" style="width: 240px;" />
+                <input 
+                pInputText 
+                formControlName="situationFamiliale" 
+                id="situationFamiliale"                     
+                style="width: 240px;" 
+                />
                 <label htmlFor="situationFamiliale">Situation familiale</label>
             </span>
         </div>
             <div style="margin-left:40%; margin-top: -6%;">
             <span class="p-float-label">
-                <input pInputText id="nom" style="width: 110px;" formControlName="nom" [ngClass]="{ 'is-invalid': submitted && f.nom.errors }"/>
+                <input 
+                    pInputText 
+                    id="nom" 
+                    style="width: 110px;" 
+                    formControlName="nom" 
+                    [ngClass]="{ 'is-invalid': submitted && f.nom.errors }"
+                />
                 <label htmlFor="nom">Nom</label>
                 <div *ngIf="submitted && f.nom.errors" class="invalid-feedback">
                     <div *ngIf="f.nom.errors.required" style="color: red;">Nom is required</div>
@@ -76,12 +85,18 @@
                     <div *ngIf="f.nom.errors.maxlength" style="color: red;">
                         Nom must not exceed 20 characters
                     </div>
-                  </div>
+                </div>
             </span>
             <br>
             <br>
             <span class="p-float-label">
-                <input pInputText id="prenom" style="width: 110px;"  formControlName="prenom" [ngClass]="{ 'is-invalid': submitted && f.prenom.errors }"/>
+                <input 
+                    pInputText 
+                    id="prenom" 
+                    style="width: 110px;"  
+                    formControlName="prenom" 
+                    [ngClass]="{ 'is-invalid': submitted && f.prenom.errors }"
+                />
                 <label htmlFor="prenom">Prenom</label>
                 <div *ngIf="submitted && f.prenom.errors" class="invalid-feedback">
                     <div *ngIf="f.prenom.errors.required" style="color: red;">Prenom is required</div>
@@ -98,33 +113,47 @@
     <p-fieldset legend="Dossier credit" [toggleable]="true" [collapsed]="true">
         <div style=" margin-left: 30%; ">
                     <span class="p-float-label">
-                        <p-dropdown    id="compte"
-                        style="width: 240px;"
-                        formControlName="selectedValue"
-                        [options]="typeCredit"
-                        [(ngModel)]="typeCredit"
-                        optionLabel="typeCredt"></p-dropdown>
-                        <label htmlFor="username">Type credit</label>
+                        <p-dropdown    
+                            id="type"
+                            formControlName="type"
+                            [options]="types"
+                            [(ngModel)]="type"
+                            optionLabel="typeCredit">
+                        </p-dropdown>
+                        <label htmlFor="type">Type credit</label>
                     </span>
             <br>
             <br>
                     <span class="p-float-label">
-                        <p-dropdown   [editable]="true" optionLabel="name"></p-dropdown>
-                        <label htmlFor="username">Unite</label>
+                        <p-dropdown    
+                        id="unite"
+                        formControlName="unite"
+                        [options]="unites"
+                        [(ngModel)]="unite"
+                        optionLabel="unite">
+                    </p-dropdown>                       
+                     <label htmlFor="unite">Unite</label>
                     </span>
         </div>
         <div style=" margin-left: 50%; margin-top: -7%">
                     <span class="p-float-label">
-                        <input pInputText id="username" style="width: 240px;" />
-                        <label htmlFor="username">Nom</label>
+                        <input pInputText id="montant" style="width: 240px;" />
+                        <label htmlFor="montant">Montant</label>
                     </span>
             <br>
             <br>
                     <span class="p-float-label">
-                        <p-calendar [showIcon]="true" [showButtonBar]="true"></p-calendar>
-                            <label htmlFor="username">Date d'ouverture</label>
+                        <input pInputText
+                        id="echeance"    
+                        style="width: 240px;" 
+                        formControlName="echeance" 
+                        />
+                        <label htmlFor="echeance">Nbr d'echeance</label>
                     </span>
             </div>
+
+            <p-button  label="open" severity="success" (onClick)="openDialog()"></p-button>
+
     </p-fieldset>
     <p-fieldset legend="Granties proposées" [toggleable]="true"[collapsed]="true"> 
         <div style="width: 900px; margin-left: 20%;">     
@@ -144,7 +173,6 @@
                 <label htmlFor="username">N du compte</label>
             </span>
         </div>
-
     </p-fieldset>
     <p-fieldset legend="Piece jointe" [toggleable]="true" [collapsed]="true">
         <div style="margin-left: 15cm">
@@ -181,10 +209,8 @@
     class="btn btn-warning float-right">
     Reset
     </p-button>
-
     <p-button type="submit" label="Register" severity="success" (onClick)="onSubmit()"></p-button>
 </form>
-
 </p-fieldset>
 
 

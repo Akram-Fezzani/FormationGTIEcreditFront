@@ -2,9 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { DemandeCreditService } from '../service/DemandeService/demande-credit.service';
 import { Client } from '../models/Client';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { SelectItem } from 'primeng/api';
 import { Compte } from '../models/Compte';
+import { SituationFamiliale } from '../models/SituationFamiliale';
+import { TypeCredit } from '../models/TypeCredit';
+import { Unite } from '../models/Unite';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { GarantieDialogComponent } from 'src/app/garantie-dialog/garantie-dialog.component';
 
 @Component({
   selector: 'app-demande-de-credit',
@@ -12,46 +17,72 @@ import { Compte } from '../models/Compte';
   styleUrls: ['./demande-de-credit.component.css']
 })
 export class DemandeDeCreditComponent implements OnInit {
-  typeCredit:any
-  compte:any
-  client!:Client;
+  types: TypeCredit[] = [];
+  type:any
   comptes: Compte[] = [];
+  compte:any
+  unites: Unite[] = [];
+  unite:any
+  echeance!:any
+  client!:Client;
   form!: FormGroup;
   submitted = false;
   listData!: SelectItem[];
 
-  constructor(private _router:Router , private dc:DemandeCreditService,private fb: FormBuilder) { }
+  constructor(private _router:Router , private dialogService: DialogService,private dc:DemandeCreditService,private fb: FormBuilder) { }
 
 getClient(){
         this.dc.getClient("50").subscribe( (data:Client) =>{
             console.log(data)
             this.client=data;
+            this.form.patchValue({
+                cin: data.cin,
+                nom: data.nom,
+                prenom: data.prenom,
+              //  situationFamiliale: data.situationFamiliale
+              });
         },
         (error:any) => console.log(error));
 }
 
+getSituationFamilialeByCin(){
+    this.dc.getSituationFamilialeByCin("50").subscribe( (data:SituationFamiliale) =>{
+        console.log(data.situationf)
+        this.form.patchValue({
+            situationFamiliale: data.situationf
+          });
+    },
+    (error:any) => console.log(error));
+}
 getCompteByClientCin(){
         this.dc.getCompteByClientCin("50").subscribe( (data:Compte[]) =>{
             console.log(data)
             this.comptes=data;
            this.listData = data.map(comptes => ({label: comptes.id, value: comptes.numcompte}));
-           //this.compte = data;
-
         },
         (error:any) => console.log(error)); 
 }
 
 getTypeCredit(){
-        this.dc.getTypeCrdit().subscribe( (data:any[]) =>{
+        this.dc.getTypeCrdit().subscribe( (data:TypeCredit[]) =>{
             console.log(data)
-            this.typeCredit=data;
-           this.listData = data.map(typeCredit => ({label: typeCredit.id, value: typeCredit.typeCredt}));
-           //this.compte = data;
+            this.types=data;
+           this.listData = data.map(types => ({label: types.id, value: types.typeCredit}));
 
         },
         (error:any) => console.log(error)); 
 }
 
+
+getUnite(){
+    this.dc.getUnite().subscribe( (data:Unite[]) =>{
+        console.log(data)
+        this.unites=data;
+       this.listData = data.map(unites => ({label: unites.id, value: unites.unite}));
+
+    },
+    (error:any) => console.log(error)); 
+}
 onSubmit(): void {
         this.submitted = true;
         if (this.form.invalid) {
@@ -64,15 +95,34 @@ get f(): { [key: string]: AbstractControl } {
         return this.form.controls;
 }
      
+
+openDialog() {
+   // Open the dialog and pass data
+   const ref: DynamicDialogRef = this.dialogService.open(GarantieDialogComponent, {
+    header: 'Your Dialog Title',
+    width: '70%',
+    height:'70%',
+    contentStyle: { 'max-height': '500px', overflow: 'auto' },
+    baseZIndex: 10000,
+    data: { display: true }, // Pass data to the dialog
+  });
+
+  // Subscribe to the onClose event
+  ref.onClose.subscribe((result: any) => {
+    // Handle actions before the dialog is closed
+    console.log('Dialog is about to close with result:', result);
+  });
+   }
 onReset(): void {
         this.submitted = false;
         this.form.reset();
 }
-
 ngOnInit() {
-    this.getTypeCredit()
         this.getClient();
         this.getCompteByClientCin();
+        this.getSituationFamilialeByCin()
+        this.getTypeCredit()
+        this.getUnite()
         this.form = this.fb.group({
             cin: [
                 '', 
@@ -80,17 +130,31 @@ ngOnInit() {
                 ],
             nom: [
                 '', 
-                [Validators.required, Validators.minLength(3), Validators.maxLength(15)],
+                [Validators.required, Validators.minLength(3), Validators.maxLength(15) ],
                 ],
             prenom: [
-                '', 
                 [Validators.required, Validators.minLength(3), Validators.maxLength(15)],
                 ],
             compte: [
                 '',
                 Validators.required
                 ],
+            situationFamiliale: [
+                '',
+                Validators.required
+                ],
+            type: [
+                '',
+                Validators.required
+                ],
+            unite: [
+                    '',
+                Validators.required
+                ],
+            echeance: [
+                '',
+                Validators.required
+                ],
         });
 }
- 
 }
