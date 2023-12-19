@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Garantie } from '../../models/Garantie';
+import { Garantie } from '../../../models/Garantie';
 
 @Injectable({
   providedIn: 'root'
@@ -44,5 +44,18 @@ export class DemandeCreditService {
     return this._http.post<Garantie>('http://localhost:8081/Garantie/postGarantie',garantie);
 
   }
+
+  getGarantieParCredit(creditId:String): Observable<any> { 
+    return this.http.get('http://localhost:8081/Garantie/getgarantiesByCreditId/'+creditId);
+  }
+
+  getPiece(): Observable<any> { 
+    return this.http.get('http://localhost:8081/PieceJointe/getPieceJointes');
+  }
+
+  deleteGarantie(Id:string): Observable<any> {
+    return this.http.delete( 'http://localhost:8081/Garantie/delete/'+Id);
+  }
+
 
 }

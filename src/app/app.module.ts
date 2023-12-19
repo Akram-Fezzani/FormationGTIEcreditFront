@@ -23,18 +23,23 @@ import { GarantieDialogComponent } from './components/garantie-dialog/garantie-d
 import { DialogService } from 'primeng/dynamicdialog';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api'; // Import MessageService here
+import { RadioButtonModule } from 'primeng/radiobutton';
+import { CheckboxModule } from 'primeng/checkbox';
 
 @NgModule({
   declarations: [
     AppComponent,
     DemandeDeCreditComponent,
     TableComponent,
-    GarantieDialogComponent
+    GarantieDialogComponent,
+    
   ],
   imports: [
     BrowserModule,
+    CheckboxModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    RadioButtonModule,
     ChartModule,
     //FormsModule,
     ReactiveFormsModule,

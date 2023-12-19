@@ -2,7 +2,7 @@
     <p-button type="button" icon="pi pi-plus" styleClass="p-button-text" (onClick)="openDialog()"></p-button>
 
 </div>
-<p-table>
+<p-table [value]="dto">
     <ng-template pTemplate="header">
 
         <tr>
@@ -14,21 +14,18 @@
         </tr>
 
     </ng-template>
-    <ng-template pTemplate="body" let-customer>
+    <ng-template pTemplate="body" let-dto>
         <tr>
-            <td>{{ customer.name }}</td>
-            <td>{{ customer.country.name }}</td>
-            <td>{{ customer.company }}</td>
-            <td>{{ customer.representative.name }}</td>
-            <td>        <p-button type="button" icon="pi pi-plus" styleClass="p-button-text"></p-button>
-                <p-button type="button" icon="pi pi-cloud" styleClass="p-button-text"></p-button>
+            <td>{{ dto.nature }}</td>
+            <td>{{ dto.typeGarantie }}</td>
+            <td>{{ dto.valeur }}</td>
+            <td>{{ dto.deviseGarantie }}</td>
+            <td>
+                <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" ></button>
+                <button pButton pRipple icon="pi pi-trash" (click)="Delete(dto.idGarantie)"class="p-button-rounded p-button-warning" ></button>
             </td>
+          
         </tr>
     </ng-template>
-    <ng-template pTemplate="paginatorleft">
-        <p-button type="button" icon="pi pi-plus" styleClass="p-button-text"></p-button>
-    </ng-template>
-    <ng-template pTemplate="paginatorright">
-        <p-button type="button" icon="pi pi-cloud" styleClass="p-button-text"></p-button>
-    </ng-template>
+ 
 </p-table>

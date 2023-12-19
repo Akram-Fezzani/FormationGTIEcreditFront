@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { TypeGarantie } from '../models/TypeGarantie';
+import { TypeGarantie } from '../../models/TypeGarantie';
 import { DemandeCreditService } from '../service/DemandeService/demande-credit.service';
 import { Router } from '@angular/router';
 import { MessageService, SelectItem } from 'primeng/api';
-import { Nature } from '../models/Nature';
-import { Devise } from '../models/Devise';
-import { Garantie } from '../models/Garantie';
+import { Nature } from '../../models/Nature';
+import { Devise } from '../../models/Devise';
+import { Garantie } from '../../models/Garantie';
 
 @Component({
   selector: 'app-garantie-dialog',
@@ -67,6 +67,7 @@ addGarantie(){
   this.garantie.nature=garantieData.nature.id;
   this.garantie.valeur=garantieData.valeur;
   this.garantie.type=garantieData.typeGar.id;
+  this.garantie.creditId=5
   this.dc.addGarantie(this.garantie).subscribe( (data:any) =>{
     console.log(data);
     this.showToast()
