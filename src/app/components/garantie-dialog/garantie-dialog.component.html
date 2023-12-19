@@ -6,52 +6,69 @@
         </div>     
     </ng-template>
     <form [formGroup]="garantieForm" >
+        <div style=" margin-left: 20%; ">
+
         <span class="p-float-label">
             <input pInputText
-            id="montant"    
+            id="valeur"    
             style="width: 240px;" 
-            formControlName="montant" 
+            formControlName="valeur" 
             />
-            <label htmlFor="montant">Montant</label>
+            <label htmlFor="valeur">Montant</label>
         </span>
         <br>
         <br>
         <span class="p-float-label">
             <p-dropdown
                 id="typeGar"
+                [style]="{'width':'24%'}"
                 formControlName="typeGar"
                 [options]="typeGars"
                 [(ngModel)]="typeGar"
-                optionLabel="typeGarantie">
+                optionLabel="typeGarantie"
+                >
             </p-dropdown>
             <label htmlFor="typeGar">Type Garantie</label>
         </span>
-        <br>
-        <br>
-        <span class="p-float-label">
-            <p-dropdown
-                id="nature"
-                formControlName="nature"
-                [options]="natures"
-                [(ngModel)]="nature"
-                optionLabel="nature">
-            </p-dropdown>
-            <label htmlFor="nature">Nature</label>
-        </span>
-        <br>
+        </div>
+        <div style=" margin-left: 55%; margin-top: -11.25%">
         <br>
         <span class="p-float-label">
             <p-dropdown
+            [style]="{'width':'48%'}"
                 id="devise"
                 formControlName="devise"
                 [options]="devises"
                 [(ngModel)]="devise"
-                optionLabel="devise">
+                optionLabel="devise"
+                >
             </p-dropdown>
             <label htmlFor="devise">Devise</label>
         </span>
-    
-        <p-button type="submit" label="Register" severity="success" (onClick)="onSubmit()"></p-button>
+        <br>
+        <br>
+        <span class="p-float-label">
+            <p-dropdown
+            [style]="{'width':'48%'}"
+            id="nature"
+                formControlName="nature"
+                [options]="natures"
+                [(ngModel)]="nature"
+                optionLabel="nature"
+                >
+            </p-dropdown>
+            <label htmlFor="nature">Nature</label>
+        </span>
+     
+      
+    </div>
+    <div style=" margin-left: 43%;margin-top: 2cm;">
+
+        <p-button type="submit" label="Register" severity="success" (onClick)="addGarantie()"></p-button>
+        <p-toast></p-toast>
+
+    </div>
+
 </form>
 </p-fieldset>
 

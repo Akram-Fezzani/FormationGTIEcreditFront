@@ -3,9 +3,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TypeGarantie } from '../models/TypeGarantie';
 import { DemandeCreditService } from '../service/DemandeService/demande-credit.service';
 import { Router } from '@angular/router';
-import { SelectItem } from 'primeng/api';
+import { MessageService, SelectItem } from 'primeng/api';
 import { Nature } from '../models/Nature';
 import { Devise } from '../models/Devise';
+import { Garantie } from '../models/Garantie';
 
 @Component({
   selector: 'app-garantie-dialog',
@@ -25,7 +26,9 @@ export class GarantieDialogComponent implements OnInit {
   nature:any
   devises: Devise[] = [];
   devise:any
-  constructor(private dc:DemandeCreditService,private fb: FormBuilder,private _router:Router) { }
+  garantie: Garantie=new Garantie();
+
+  constructor(private dc:DemandeCreditService,private fb: FormBuilder,private _router:Router,private messageService: MessageService) { }
 
 
   getTypeGarantie(){
@@ -58,13 +61,28 @@ getDevise(){
   (error:any) => console.log(error)); 
 }
 
-onSubmit(): void {
-  this.submitted = true;
-  if (this.form.invalid) {
-      return;
-  }
-  console.log(JSON.stringify(this.form.value, null, 2));
+addGarantie(){
+  const garantieData = this.garantieForm.value;
+  this.garantie.devise=garantieData.devise.id;
+  this.garantie.nature=garantieData.nature.id;
+  this.garantie.valeur=garantieData.valeur;
+  this.garantie.type=garantieData.typeGar.id;
+  this.dc.addGarantie(this.garantie).subscribe( (data:any) =>{
+    console.log(data);
+    this.showToast()
+    
+    },
+    (error:any) => console.log(error));  }
+showToast() {
+      this.messageService.add({
+        severity: 'success',
+        summary: 'Garantie',
+        detail: 'La garantie a été bien ajouté'
+      });
 }
+
+
+
 
 onReset(): void {
   this.submitted = false;
@@ -75,9 +93,9 @@ onReset(): void {
     this.getNature()
     this.getDevise()
     this.garantieForm = this.fb.group({
-      montant: [
+      valeur: [
         '', 
-        [Validators.required, Validators.minLength(8), Validators.maxLength(8)],
+        Validators.required,
         ],   
       typeGar: [
         '',

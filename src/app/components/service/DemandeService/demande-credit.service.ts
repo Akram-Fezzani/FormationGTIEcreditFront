@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Garantie } from '../../models/Garantie';
 
 @Injectable({
   providedIn: 'root'
@@ -37,6 +38,11 @@ export class DemandeCreditService {
 
   getDevise(): Observable<any> { 
     return this.http.get('  http://localhost:8081/Devise/getDevise');
+  }
+
+  addGarantie(garantie: Garantie){
+    return this._http.post<Garantie>('http://localhost:8081/Garantie/postGarantie',garantie);
+
   }
 
 }

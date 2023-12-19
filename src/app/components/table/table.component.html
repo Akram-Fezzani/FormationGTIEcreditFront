@@ -1,10 +1,10 @@
 <div class="mb-3">
-    <p-button type="button" icon="pi pi-chevron-left"   styleClass="p-button-text"></p-button>
-    <p-button type="button" icon="pi pi-refresh"  styleClass="p-button-text"></p-button>
-    <p-button type="button" icon="pi pi-chevron-right"   styleClass="p-button-text"></p-button>
+    <p-button type="button" icon="pi pi-plus" styleClass="p-button-text" (onClick)="openDialog()"></p-button>
+
 </div>
 <p-table>
     <ng-template pTemplate="header">
+
         <tr>
             <th style="width:25%">Nature</th>
             <th style="width:25%">Type</th>
@@ -12,6 +12,7 @@
             <th style="width:25%">Devise</th>
             <th style="width:25%">Action</th>
         </tr>
+
     </ng-template>
     <ng-template pTemplate="body" let-customer>
         <tr>

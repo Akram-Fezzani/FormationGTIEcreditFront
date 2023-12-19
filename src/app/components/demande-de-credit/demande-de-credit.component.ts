@@ -29,7 +29,7 @@ export class DemandeDeCreditComponent implements OnInit {
   submitted = false;
   listData!: SelectItem[];
 
-  constructor(private _router:Router , private dialogService: DialogService,private dc:DemandeCreditService,private fb: FormBuilder) { }
+constructor(private _router:Router , private dc:DemandeCreditService,private fb: FormBuilder) { }
 
 getClient(){
         this.dc.getClient("50").subscribe( (data:Client) =>{
@@ -39,7 +39,6 @@ getClient(){
                 cin: data.cin,
                 nom: data.nom,
                 prenom: data.prenom,
-              //  situationFamiliale: data.situationFamiliale
               });
         },
         (error:any) => console.log(error));
@@ -73,7 +72,6 @@ getTypeCredit(){
         (error:any) => console.log(error)); 
 }
 
-
 getUnite(){
     this.dc.getUnite().subscribe( (data:Unite[]) =>{
         console.log(data)
@@ -96,22 +94,6 @@ get f(): { [key: string]: AbstractControl } {
 }
      
 
-openDialog() {
-   // Open the dialog and pass data
-   const ref: DynamicDialogRef = this.dialogService.open(GarantieDialogComponent, {
-    width: '70%',
-    height:'60%',
-    contentStyle: { 'max-height': '500px', overflow: 'auto' },
-    baseZIndex: 10000,
-    data: { display: true }, // Pass data to the dialog
-  });
-
-  // Subscribe to the onClose event
-  ref.onClose.subscribe((result: any) => {
-    // Handle actions before the dialog is closed
-    console.log('Dialog is about to close with result:', result);
-  });
-   }
 onReset(): void {
         this.submitted = false;
         this.form.reset();

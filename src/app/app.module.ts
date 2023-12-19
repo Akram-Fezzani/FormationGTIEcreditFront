@@ -21,6 +21,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { DialogModule } from 'primeng/dialog';
 import { GarantieDialogComponent } from './components/garantie-dialog/garantie-dialog.component';
 import { DialogService } from 'primeng/dynamicdialog';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api'; // Import MessageService here
 
 @NgModule({
   declarations: [
@@ -37,6 +39,7 @@ import { DialogService } from 'primeng/dynamicdialog';
     //FormsModule,
     ReactiveFormsModule,
     InputTextModule,
+    ToastModule,
     ButtonModule,
     TableModule, 
     ProgressSpinnerModule,
@@ -49,7 +52,7 @@ import { DialogService } from 'primeng/dynamicdialog';
     DialogModule,
     HttpClientModule
   ],
-  providers: [DialogService],
+  providers: [DialogService,MessageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
