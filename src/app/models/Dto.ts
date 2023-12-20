@@ -1,3 +1,4 @@
+
 export class Dto {
 
     ClientDto!: ClientDto;
@@ -7,6 +8,7 @@ export class Dto {
 	PieceJointeDto!:PieceJointeDto;
 
 }
+
 export class ClientDto {
     cin!: string;
 	nom!:string;
@@ -14,7 +16,6 @@ export class ClientDto {
     dateNs!:Date;
 	situationFamilialeId!:string;
 }
-
 export class CompteDto {
     numcompte!: string;
 	deviseId!:string;

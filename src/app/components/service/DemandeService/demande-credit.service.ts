@@ -57,5 +57,9 @@ export class DemandeCreditService {
     return this.http.delete( 'http://localhost:8081/Garantie/delete/'+Id);
   }
 
-
+  
+  updateGarantie(garantie: Garantie, garantieID: number): Observable<Garantie> {
+    const url = `http://localhost:8081/Garantie/updateGarantie/${garantieID}`;
+    return this.http.post<Garantie>(url, garantie);
+  }
 }

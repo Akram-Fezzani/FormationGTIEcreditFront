@@ -25,6 +25,7 @@ import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api'; // Import MessageService here
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { CheckboxModule } from 'primeng/checkbox';
+import { ConsultationCreditComponent } from './consultation-credit/consultation-credit.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { CheckboxModule } from 'primeng/checkbox';
     DemandeDeCreditComponent,
     TableComponent,
     GarantieDialogComponent,
+    ConsultationCreditComponent,
     
   ],
   imports: [

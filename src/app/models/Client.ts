@@ -6,4 +6,5 @@ export class Client {
     prenom!:String;
 	dateNs!:Date;
 	situationFamiliale!:String;
+	dateOuverture!:Date;
 }

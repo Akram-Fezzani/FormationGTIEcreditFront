@@ -1,6 +1,6 @@
 export class Garantie {
 
-    id!: string;
+    id!: number;
 	nature!:Number;
 	type!:Number;
     devise!:Number;

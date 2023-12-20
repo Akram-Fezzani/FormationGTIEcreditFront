@@ -21,7 +21,7 @@
             <td>{{ dto.valeur }}</td>
             <td>{{ dto.deviseGarantie }}</td>
             <td>
-                <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" ></button>
+                <button pButton pRipple icon="pi pi-pencil" (click)="showDialog(dto)" class="p-button-rounded p-button-success mr-2" ></button>
                 <button pButton pRipple icon="pi pi-trash" (click)="Delete(dto.idGarantie)"class="p-button-rounded p-button-warning" ></button>
             </td>
           
@@ -29,3 +29,76 @@
     </ng-template>
  
 </p-table>
+
+<p-dialog [(visible)]="visible" [style]="{width: '70vw'}">
+    <p-fieldset>
+        <ng-template pTemplate="header">
+            <div class="flex align-items-center text-primary">
+                <span class="pi pi-user mr-2"></span>
+                <span class="font-bold text-lg">Modifier une garantie</span>
+            </div>     
+        </ng-template>
+        <form [formGroup]="garantieForm" >
+            <div style=" margin-left: 20%; ">
+    
+            <span class="p-float-label">
+                <input pInputText
+                id="valeur"    
+                style="width: 240px;" 
+                formControlName="valeur" 
+                />
+                <label htmlFor="valeur">Montant</label>
+            </span>
+            <br>
+            <br>
+            <span class="p-float-label">
+                <p-dropdown
+                    id="typeGar"
+                    [style]="{'width':'24%'}"
+                    formControlName="typeGar"
+                    [options]="typeGars"
+                    [(ngModel)]="typeGar"
+                    optionLabel="typeGarantie"
+                    >
+                </p-dropdown>
+                <label htmlFor="typeGar">Type Garantie</label>
+            </span>
+            </div>
+            <div style=" margin-left: 55%; margin-top: -11.25%">
+            <br>
+            <span class="p-float-label">
+                <p-dropdown
+                [style]="{'width':'48%'}"
+                    id="devise"
+                    formControlName="devise"
+                    [options]="devises"
+                    [(ngModel)]="devise"
+                    optionLabel="devise"
+                    >
+                </p-dropdown>
+                <label htmlFor="devise">Devise</label>
+            </span>
+            <br>
+            <br>
+            <span class="p-float-label">
+                <p-dropdown
+                [style]="{'width':'48%'}"
+                id="nature"
+                    formControlName="nature"
+                    [options]="natures"
+                    [(ngModel)]="nature"
+                    optionLabel="nature"
+                    >
+                </p-dropdown>
+                <label htmlFor="nature">Nature</label>
+            </span>
+            <input   name="id" id="id" formControlName="id">
+        </div>
+        <div style=" margin-left: 43%;margin-top: 2cm;">
+            <p-button type="submit" label="Update" severity="success" (click)="UpdateGarantie()"
+            ></p-button>
+            <p-toast></p-toast>
+        </div>
+    </form>
+    </p-fieldset>
+</p-dialog>
