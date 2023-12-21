@@ -32,14 +32,14 @@ export class TableComponent implements OnInit {
 getTypeGaranties(){
         this.dc.getGarantieParCredit("5").subscribe( (data:GarantieDto[]) =>{
         this.dto=data;
-        console.log(this.dto)
+        //console.log(this.dto)
 
     },
     (error:any) => console.log(error)); 
 }
 getTypeGarantie(){
       this.dc.getTypeGarantie().subscribe( (data:TypeGarantie[]) =>{
-      console.log(data)
+     // console.log(data)
       this.typeGars=data;
       this.listData = data.map(typeGars => ({label: typeGars.id, value: typeGars.typeGarantie}));
 
@@ -48,7 +48,7 @@ getTypeGarantie(){
 }
 getNature(){
     this.dc.getNature().subscribe( (data:Nature[]) =>{
-    console.log(data)
+    //console.log(data)
     this.natures=data;
    this.listData = data.map(natures => ({label: natures.id, value: natures.nature}));
 
@@ -72,13 +72,14 @@ UpdateGarantie(){
   this.garantie.type=garantieData.typeGar.id;
   this.garantie.id=garantieData.id
   this.garantie.creditId=5
-  console.log(garantieData)
   this.dc.updateGarantie(this.garantie,this.garantie.id).subscribe( (data:any) =>{
-    console.log(data);
-    this.showToast()
-    this.getTypeGaranties()
+    //console.log(data);
+    this.hideDialog();
+    this.showToast();
+    this.getTypeGaranties();
     },
   (error:any) => console.log(error)); }
+
 showToast() {
       this.messageService.add({
         severity: 'success',
@@ -104,9 +105,12 @@ openDialog() {
         console.log('Dialog is about to close with result:', result);
     });
 }
+hideDialog() {
+  this.visible = false;
+}
 showDialog(dto:any) {
         this.visible = true;
-        console.log(dto)
+        //console.log(dto)
         this.garantieForm.patchValue({
             valeur: dto.valeur,
             typeGar: dto.typeGar,
@@ -138,4 +142,6 @@ showDialog(dto:any) {
     this.getNature();
     this.getDevise();
   }
+
+  
 }

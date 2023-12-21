@@ -26,6 +26,7 @@ import { MessageService } from 'primeng/api'; // Import MessageService here
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { CheckboxModule } from 'primeng/checkbox';
 import { ConsultationCreditComponent } from './consultation-credit/consultation-credit.component';
+import { DividerModule } from 'primeng/divider';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { ConsultationCreditComponent } from './consultation-credit/consultation-
     BrowserAnimationsModule,
     RadioButtonModule,
     ChartModule,
+    DividerModule,
     //FormsModule,
     ReactiveFormsModule,
     InputTextModule,

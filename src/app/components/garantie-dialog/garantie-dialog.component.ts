@@ -33,7 +33,7 @@ export class GarantieDialogComponent implements OnInit {
 
   getTypeGarantie(){
     this.dc.getTypeGarantie().subscribe( (data:TypeGarantie[]) =>{
-        console.log(data)
+        //console.log(data)
         this.typeGars=data;
        this.listData = data.map(typeGars => ({label: typeGars.id, value: typeGars.typeGarantie}));
 
@@ -43,7 +43,7 @@ export class GarantieDialogComponent implements OnInit {
 
 getNature(){
   this.dc.getNature().subscribe( (data:Nature[]) =>{
-      console.log(data)
+      //console.log(data)
       this.natures=data;
      this.listData = data.map(natures => ({label: natures.id, value: natures.nature}));
 
@@ -53,7 +53,7 @@ getNature(){
 
 getDevise(){
   this.dc.getDevise().subscribe( (data:Devise[]) =>{
-      console.log(data)
+      //console.log(data)
       this.devises=data;
      this.listData = data.map(devises => ({label: devises.id, value: devises.devise}));
 
@@ -69,7 +69,7 @@ addGarantie(){
   this.garantie.type=garantieData.typeGar.id;
   this.garantie.creditId=5
   this.dc.addGarantie(this.garantie).subscribe( (data:any) =>{
-    console.log(data);
+    //console.log(data);
     this.showToast()
     
     },

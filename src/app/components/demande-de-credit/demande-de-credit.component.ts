@@ -92,7 +92,7 @@ getClient() {
 getSituationFamilialeByCin() {
             this.dc.getSituationFamilialeByCin(this.form.controls.cin.value).subscribe(
               (data: SituationFamiliale) => {
-                console.log(data.situationf);
+              //  console.log(data.situationf);
                 this.form.patchValue({
                   situationFamiliale: data.situationf,
                 });
@@ -104,7 +104,7 @@ getCompteByClientCin() {
 
             this.dc.getCompteByClientCin(this.form.controls.cin.value).subscribe(
               (data: Compte[]) => {
-                console.log(data);
+              //  console.log(data);
                 this.comptes = data;
                 this.listData = data.map((comptes) => ({
                   label: comptes.id,
@@ -138,14 +138,14 @@ getTypeCredit() {
 getPiece(){
           this.dc.getPiece().subscribe( (data:Piece[]) =>{
               this.piece=data;
-              console.log(this.piece)
+             // console.log(this.piece)
           },
           (error:any) => console.log(error)); 
 }
 getUnite() {
         this.dc.getUnite().subscribe(
           (data: Unite[]) => {
-            console.log(data);
+          //  console.log(data);
             this.unites = data;
             this.listData = data.map((unites) => ({
               label: unites.id,
@@ -172,7 +172,7 @@ onReset(): void {
 }
 onFileUpload(event: any) {
   // Handle the response if needed
-  console.log(event);
+ // console.log(event);
 }
   ngOnInit() {
     this.form = this.fb.group({

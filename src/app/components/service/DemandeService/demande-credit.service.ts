@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Garantie } from '../../../models/Garantie';
+import { CreditDto } from 'src/app/models/Dto';
 
 @Injectable({
   providedIn: 'root'
@@ -44,7 +45,6 @@ export class DemandeCreditService {
     return this._http.post<Garantie>('http://localhost:8081/Garantie/postGarantie',garantie);
 
   }
-
   getGarantieParCredit(creditId:String): Observable<any> { 
     return this.http.get('http://localhost:8081/Garantie/getgarantiesByCreditId/'+creditId);
   }
@@ -56,10 +56,26 @@ export class DemandeCreditService {
   deleteGarantie(Id:string): Observable<any> {
     return this.http.delete( 'http://localhost:8081/Garantie/delete/'+Id);
   }
-
-  
   updateGarantie(garantie: Garantie, garantieID: number): Observable<Garantie> {
     const url = `http://localhost:8081/Garantie/updateGarantie/${garantieID}`;
     return this.http.post<Garantie>(url, garantie);
+  }
+  getDemandeCredit(): Observable<any> { 
+    return this.http.get('http://localhost:8081/dto/getCredits' );
+  }
+
+  deleteDemande(Id:string): Observable<any> {
+    return this.http.delete( 'http://localhost:8081/Credit/delete/'+Id);
+  }
+  acceptCredit( creditID: String): Observable<any> {
+    return  this.http.post('http://localhost:8081/Credit/confirmeCredit/'+creditID,null);
+  }
+
+  getTypeCresitById(Id:String): Observable<any> { 
+    return this.http.get('http://localhost:8081/TypeCredit/'+Id );
+  }
+
+  getUniteById(Id:String): Observable<any> { 
+    return this.http.get('http://localhost:8081/Unite/'+Id );
   }
 }
