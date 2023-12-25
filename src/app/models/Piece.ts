@@ -7,6 +7,7 @@ export class Piece {
     fileSize!: string;
 	filePath!:String;
     creditId!:String;
+    display!:String;
 }
 
 

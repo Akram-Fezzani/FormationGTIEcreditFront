@@ -16,16 +16,19 @@
             <td>{{ dto.creditDto.id }}</td>
             <td> {{ dto.clientDto.nom }}  {{ dto.clientDto.prenom }}</td>
             <td>{{ dto.creditDto.type }}</td>
-            <td>{{ dto.creditDto.status }}</td>
+            <td>{{ dto.creditDto.display }}</td>
             <td>{{ dto.creditDto.dateDemande | date:'dd-MM-yyyy'}}</td>
             <td>
                 <button *ngIf="dto.creditDto.status==true" pButton pRipple icon="pi pi-eye"  class="p-button-rounded p-button-warning mr-2" (click)="showDialog(dto)" ></button>
                 <button *ngIf="dto.creditDto.status==false" pButton pRipple icon="pi pi-check"  class="p-button-rounded p-button-success mr-2" (click)="acceptCredit(dto.creditDto.id)"></button>
-                <button *ngIf="dto.creditDto.status == false" pButton pRipple icon="pi pi-ban"class="p-button-rounded p-button-danger"  (click)="deleteDemande(dto.creditDto.id)"></button>
+                <button  pButton pRipple icon="pi pi-ban"class="p-button-rounded p-button-danger"  (click)="deleteDemande(dto.creditDto.id)"></button>
             </td>
         </tr>
     </ng-template>
 </p-table>
+</div>
+<div style="margin-left: 45%; margin-top: 1.9%">
+    <p-button  label="New Credit" severity="success" (click)="changepage()" ></p-button>
 </div>
 </p-fieldset>
 <p-dialog [(visible)]="visible" [style]="{width: '70vw'}"> 

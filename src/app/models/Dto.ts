@@ -36,6 +36,7 @@ export class CreditDto {
     par!:string;
     status!:boolean;
     compteId!:string;
+    display!:string;
 }
 
 

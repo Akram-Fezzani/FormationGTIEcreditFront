@@ -4,7 +4,6 @@ import { Client } from '../../models/Client';
 import {
   AbstractControl,
   FormBuilder,
-  FormControl,
   FormGroup,
   Validators,
 } from '@angular/forms';
@@ -15,7 +14,6 @@ import { TypeCredit } from '../../models/TypeCredit';
 import { Unite } from '../../models/Unite';
 import { Piece } from 'src/app/models/Piece';
 import { CreditDto, Dto } from 'src/app/models/Dto';
-import { ClientDto } from 'src/app/models/ClientDto';
 import { Router } from '@angular/router';
 
 
@@ -62,11 +60,8 @@ postDto(){
   this.dto.status=false;
   this.dto.compteId=garantieData.compte.id
   this.dto.dateDemande=garantieData.entreeRelation;
-  console.log(this.dto);
   this.dc.addDemande(this.dto).subscribe( (data:any) =>{
-    console.log(data);
-    //this.showToast()
-
+    this._router.navigate(['/consultation']);
     },
     (error:any) => console.log(error));  
 }
@@ -89,7 +84,6 @@ getClient() {
 getSituationFamilialeByCin() {
             this.dc.getSituationFamilialeByCin(this.form.controls.cin.value).subscribe(
               (data: SituationFamiliale) => {
-              //  console.log(data.situationf);
                 this.form.patchValue({
                   situationFamiliale: data.situationf,
                 });
@@ -101,12 +95,10 @@ getCompteByClientCin() {
 
             this.dc.getCompteByClientCin(this.form.controls.cin.value).subscribe(
               (data: Compte[]) => {
-              //  console.log(data);
                 this.comptes = data;
                 this.listData = data.map((comptes) => ({
                   label: comptes.id,
                   value: comptes.numcompte,
-                  //dateOuverture: new Date(comptes.dateOuverture),
                 }));
               },
               (error: any) => console.log(error)
@@ -122,7 +114,6 @@ onSelectAccount(compte: Compte) {
 getTypeCredit() {
           this.dc.getTypeCrdit().subscribe(
             (data: TypeCredit[]) => {
-            //  console.log(data);
               this.types = data;
               this.listData = data.map((types) => ({
                 label: types.id,
@@ -135,14 +126,12 @@ getTypeCredit() {
 getPiece(){
           this.dc.getPiece().subscribe( (data:Piece[]) =>{
               this.piece=data;
-             // console.log(this.piece)
           },
           (error:any) => console.log(error)); 
 }
 getUnite() {
         this.dc.getUnite().subscribe(
           (data: Unite[]) => {
-          //  console.log(data);
             this.unites = data;
             this.listData = data.map((unites) => ({
               label: unites.id,
@@ -168,12 +157,6 @@ onReset(): void {
         this.form.reset();
 }
 onFileUpload(event: any) {
-  // Handle the response if needed
- // console.log(event);
-}
-changepage(){
-  this._router.navigate(['/consultation']);
-
 }
 ngOnInit() {
     this.form = this.fb.group({

@@ -7,13 +7,14 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TypeGarantie } from 'src/app/models/TypeGarantie';
 import { MessageService, SelectItem } from 'primeng/api';
 import { Garantie } from 'src/app/models/Garantie';
-import { DemandeCreditService } from '../components/service/DemandeService/demande-credit.service';
+import { DemandeCreditService } from '../service/DemandeService/demande-credit.service';
 //import { GarantieDto } from '../models/Dto';
-import { GarantieDialogComponent } from '../components/garantie-dialog/garantie-dialog.component';
-import { SituationFamiliale } from '../models/SituationFamiliale';
-import { Unite } from '../models/Unite';
-import { TypeCredit } from '../models/TypeCredit';
-import { GarantieDto } from '../models/Dto';
+import { GarantieDialogComponent } from '../garantie-dialog/garantie-dialog.component';
+import { SituationFamiliale } from '../../models/SituationFamiliale';
+import { Unite } from '../../models/Unite';
+import { TypeCredit } from '../../models/TypeCredit';
+import { GarantieDto } from '../../models/Dto';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-consultation-credit',
   templateUrl: './consultation-credit.component.html',
@@ -21,7 +22,13 @@ import { GarantieDto } from '../models/Dto';
 })
 export class ConsultationCreditComponent implements OnInit {
 
-  constructor(private dc:DemandeCreditService,private fb: FormBuilder,private dialogService: DialogService,private messageService: MessageService) { }
+  constructor(
+    private dc:DemandeCreditService,
+    private fb: FormBuilder,
+    private dialogService: DialogService,
+    private messageService: MessageService,
+    private _router: Router
+  ) { }
   dto!:GarantieDto[];
   visible: boolean = false;
   garantieForm!: FormGroup;
@@ -39,14 +46,12 @@ getDemandeCredit(){
 getTypeCresitById(Id:any){
   this.dc.getTypeCresitById(Id).subscribe( (data:any) =>{
   this.typeCredit=data;
-  console.log(this.dto)
 },
 (error:any) => console.log(error)); 
 }
 getUniteById(Id:any){
   this.dc.getUniteById(Id).subscribe( (data:any) =>{
   this.dto=data;
-  console.log(this.dto)
 },
 (error:any) => console.log(error)); 
 }
@@ -110,13 +115,16 @@ acceptCredit(id:string) {
 getSituationFamilialeByCin(dto:any) {
   this.dc.getSituationFamilialeByCin(dto.clientDto.cin).subscribe(
     (data: SituationFamiliale) => {
-    //  console.log(data.situationf);
       this.form.patchValue({
         situationFamiliale: data.situationf,
       });
     },
     (error: any) => console.log(error)
   );
+}
+changepage(){
+  this._router.navigate(['/demande']);
+
 }
 ngOnInit(): void {
       this.form = this.fb.group({

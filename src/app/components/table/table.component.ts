@@ -32,14 +32,12 @@ export class TableComponent implements OnInit {
 getTypeGaranties(){
         this.dc.getGarantieParCredit("5").subscribe( (data:GarantieDto[]) =>{
         this.dto=data;
-        //console.log(this.dto)
 
     },
     (error:any) => console.log(error)); 
 }
 getTypeGarantie(){
       this.dc.getTypeGarantie().subscribe( (data:TypeGarantie[]) =>{
-     // console.log(data)
       this.typeGars=data;
       this.listData = data.map(typeGars => ({label: typeGars.id, value: typeGars.typeGarantie}));
 
@@ -48,7 +46,6 @@ getTypeGarantie(){
 }
 getNature(){
     this.dc.getNature().subscribe( (data:Nature[]) =>{
-    //console.log(data)
     this.natures=data;
    this.listData = data.map(natures => ({label: natures.id, value: natures.nature}));
 
@@ -57,13 +54,11 @@ getNature(){
 }
 getDevise(){
   this.dc.getDevise().subscribe( (data:Devise[]) =>{
-      console.log(data)
       this.devises=data;
       this.listData = data.map(devises => ({label: devises.id, value: devises.devise}));
 },
 (error:any) => console.log(error)); 
 }
-
 UpdateGarantie(){
   const garantieData = this.garantieForm.value;
   this.garantie.devise=garantieData.devise.id;
@@ -73,13 +68,12 @@ UpdateGarantie(){
   this.garantie.id=garantieData.id
   this.garantie.creditId=5
   this.dc.updateGarantie(this.garantie,this.garantie.id).subscribe( (data:any) =>{
-    //console.log(data);
     this.hideDialog();
     this.showToast();
     this.getTypeGaranties();
     },
-  (error:any) => console.log(error)); }
-
+  (error:any) => console.log(error)); 
+}
 showToast() {
       this.messageService.add({
         severity: 'success',
@@ -91,8 +85,8 @@ Delete(id:string) {
     this.dc.deleteGarantie(id).subscribe( (data:any) =>{
         this.ngOnInit();
     },
-  (error:any) => console.log(error));  }
-
+  (error:any) => console.log(error));  
+}
 openDialog() {
       const ref: DynamicDialogRef = this.dialogService.open(GarantieDialogComponent, {
       width: '70%',
@@ -110,7 +104,6 @@ hideDialog() {
 }
 showDialog(dto:any) {
         this.visible = true;
-        //console.log(dto)
         this.garantieForm.patchValue({
             valeur: dto.valeur,
             typeGar: dto.typeGar,
@@ -119,7 +112,7 @@ showDialog(dto:any) {
             id:dto.idGarantie
         });
 }
-  ngOnInit(): void {
+ngOnInit(): void {
     this.garantieForm = this.fb.group({
       valeur: [
         '', 
@@ -141,7 +134,5 @@ showDialog(dto:any) {
     this. getTypeGaranties();
     this.getNature();
     this.getDevise();
-  }
-
-  
+}
 }

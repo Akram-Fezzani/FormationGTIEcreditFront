@@ -84,7 +84,6 @@
                     pInputText 
                     id="nom" 
                     style="width: 110px;"
-                    [disabled]="true"
                     formControlName="nom"
                     [ngClass]="{ 'is-invalid': submitted && f.nom.errors }"
                 />
@@ -195,12 +194,10 @@
                 <ng-template pTemplate="body" let-piece>
                     <tr>
                         <td>{{ piece.document }}</td>
-                        <td>{{ piece.obligatoire }}</td>
-                        <td>{{ piece.status }}</td>
+                        <td>{{ piece.display }}</td>
                         <td>    
                             <p-checkbox  [binary]="true" inputId="selectedfile"></p-checkbox>
                         </td>
-
                     </tr>
                 </ng-template>
             </p-table>
@@ -227,7 +224,7 @@
     Reset
     </p-button>
 
-    <p-button  label="Register" severity="success" (onClick)="changepage()"></p-button>
+    <p-button  label="Register" severity="success" (onClick)="postDto()"></p-button>
 </div>
 
 </form>
