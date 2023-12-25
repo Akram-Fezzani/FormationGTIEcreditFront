@@ -1,15 +1,17 @@
+import { TypeCredit } from "./TypeCredit";
 
 export class Dto {
 
     ClientDto!: ClientDto;
 	CompteDto!:CompteDto;
 	CreditDto!:CreditDto;
-    GarantieDto!:GarantieDto;
-	PieceJointeDto!:PieceJointeDto;
+    //GarantieDto!:GarantieDto;
+	//PieceJointeDto!:PieceJointeDto;
 
 }
 
 export class ClientDto {
+    id!:string;
     cin!: string;
 	nom!:string;
 	prenom!:string;
@@ -20,17 +22,20 @@ export class CompteDto {
     numcompte!: string;
 	deviseId!:string;
     dateOuverture!:Date;
+    clientId!:string
 }
 
 export class CreditDto {
     montant!: number;
 	nbrEcheance!:number;
-    typeCreditId!:number;
-    uniteId!: number;
+    type!:TypeCredit;
+    unite!: number;
 	observation!:string;
     entreeRelation!:Date;
+    dateDemande!:Date;
     par!:string;
     status!:boolean;
+    compteId!:string;
 }
 
 

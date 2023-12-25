@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { DemandeCreditService } from '../service/DemandeService/demande-credit.service';
 import { Client } from '../../models/Client';
 import {
@@ -15,8 +14,9 @@ import { SituationFamiliale } from '../../models/SituationFamiliale';
 import { TypeCredit } from '../../models/TypeCredit';
 import { Unite } from '../../models/Unite';
 import { Piece } from 'src/app/models/Piece';
-import { Dto } from 'src/app/models/Dto';
+import { CreditDto, Dto } from 'src/app/models/Dto';
 import { ClientDto } from 'src/app/models/ClientDto';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -25,6 +25,7 @@ import { ClientDto } from 'src/app/models/ClientDto';
   styleUrls: ['./demande-de-credit.component.css'],
 })
 export class DemandeDeCreditComponent implements OnInit {
+  postdto!:Client;
   types: TypeCredit[] = [];
   type: any;
   comptes: Compte[] = [];
@@ -38,7 +39,7 @@ export class DemandeDeCreditComponent implements OnInit {
   listData!: SelectItem[];
   piece!:Piece[]
   dateOuverture!:any;
-  dto!:ClientDto;
+  dto: CreditDto = new CreditDto();
   selectedAccount: Compte | undefined;
   formClient!: FormGroup;
   selectedCompte: any = {};
@@ -50,32 +51,28 @@ export class DemandeDeCreditComponent implements OnInit {
 
 postDto(){
   const garantieData = this.form.value;
- // console.log(garantieData)
-  /*this.dto.cin=garantieData.cin;
-  this.dto.nom=garantieData.nom;
-  this.dto.prenom=garantieData.prenom;
-  this.dto.dateNs=garantieData.dateNs;*/
-  //this.dto.ClientDto.situationFamilialeId=garantieData.situationFamilialeId;
-/*
-  this.dto.CompteDto.numcompte=garantieData.numcompte;
-  //this.dto.CompteDto.deviseId=garantieData.deviseId;
-  this.dto.CompteDto.dateOuverture=garantieData.dateOuverture;
+  this.dto = this.dto || {};
+  this.dto.montant=garantieData.montant;
+  this.dto.nbrEcheance=garantieData.echeance;
+  this.dto.type=garantieData.type.id;
+  this.dto.unite=garantieData.unite.id;
+  this.dto.observation=garantieData.Observation;
+  this.dto.entreeRelation=garantieData.entreeRelation;
+  this.dto.par=garantieData.Par;
+  this.dto.status=false;
+  this.dto.compteId=garantieData.compte.id
+  this.dto.dateDemande=garantieData.entreeRelation;
+  console.log(this.dto);
+  this.dc.addDemande(this.dto).subscribe( (data:any) =>{
+    console.log(data);
+    //this.showToast()
 
-  this.dto.CreditDto.montant=garantieData.valeur;
-  this.dto.CreditDto.nbrEcheance=garantieData.nbrEcheance;
-  //this.dto.CreditDto.typeCreditId=garantieData.typeCreditId;
-  //this.dto.CreditDto.uniteId=garantieData.uniteId;
-  this.dto.CreditDto.observation=garantieData.observation;
-  this.dto.CreditDto.entreeRelation=garantieData.entreeRelation;
-  this.dto.CreditDto.par=garantieData.par;
-  this.dto.CreditDto.status=garantieData.status;
-console.log(this.dto)*/
-
+    },
+    (error:any) => console.log(error));  
 }
 getClient() {
               this.dc.getClient(this.form.controls.cin.value).subscribe(
                 (data: Client) => {
-                  console.log(data);
                   this.client = data;
                   this.form.patchValue({
                     cin: data.cin,
@@ -125,7 +122,7 @@ onSelectAccount(compte: Compte) {
 getTypeCredit() {
           this.dc.getTypeCrdit().subscribe(
             (data: TypeCredit[]) => {
-              console.log(data);
+            //  console.log(data);
               this.types = data;
               this.listData = data.map((types) => ({
                 label: types.id,
@@ -174,15 +171,19 @@ onFileUpload(event: any) {
   // Handle the response if needed
  // console.log(event);
 }
-  ngOnInit() {
+changepage(){
+  this._router.navigate(['/consultation']);
+
+}
+ngOnInit() {
     this.form = this.fb.group({
       cin: [
         '',
         [Validators.required, Validators.minLength(8), Validators.maxLength(8)],
       ],
-      nom: [{ value: '', disabled: true }, Validators.required],
-      prenom: [{ value: '', disabled: true }, Validators.required],
-      situationFamiliale: [{ value: '', disabled: true }, Validators.required],
+      nom: ['', Validators.required],
+      prenom: ['', Validators.required],
+      situationFamiliale: ['', Validators.required],
       compte: ['', Validators.required],
       type: ['', Validators.required],
       unite: ['', Validators.required],
@@ -191,8 +192,8 @@ onFileUpload(event: any) {
       Observation: ['', Validators.required],
       entreeRelation: ['', Validators.required],
       montant: ['', Validators.required],
-      dateOuverture: [{ value: '', disabled: true }, Validators.required],
-      dateNs:  [{ value: '', disabled: true }, Validators.required], 
+      dateOuverture: ['', Validators.required],
+      dateNs:  ['', Validators.required], 
     });
     this.getTypeCredit();
     this.getUnite();

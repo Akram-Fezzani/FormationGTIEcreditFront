@@ -8,9 +8,12 @@ import { TypeGarantie } from 'src/app/models/TypeGarantie';
 import { MessageService, SelectItem } from 'primeng/api';
 import { Garantie } from 'src/app/models/Garantie';
 import { DemandeCreditService } from '../components/service/DemandeService/demande-credit.service';
-import { GarantieDto } from '../models/Dto';
+//import { GarantieDto } from '../models/Dto';
 import { GarantieDialogComponent } from '../components/garantie-dialog/garantie-dialog.component';
 import { SituationFamiliale } from '../models/SituationFamiliale';
+import { Unite } from '../models/Unite';
+import { TypeCredit } from '../models/TypeCredit';
+import { GarantieDto } from '../models/Dto';
 @Component({
   selector: 'app-consultation-credit',
   templateUrl: './consultation-credit.component.html',
@@ -23,22 +26,57 @@ export class ConsultationCreditComponent implements OnInit {
   visible: boolean = false;
   garantieForm!: FormGroup;
   form!: FormGroup;
-
-  getDemandeCredit(){
+  Unite!:Unite;
+  typeCredit!:TypeCredit;
+getDemandeCredit(){
         this.dc.getDemandeCredit().subscribe( (data:GarantieDto[]) =>{
         this.dto=data;
+        
         console.log(this.dto)
     },
     (error:any) => console.log(error)); 
 }
-
+getTypeCresitById(Id:any){
+  this.dc.getTypeCresitById(Id).subscribe( (data:any) =>{
+  this.typeCredit=data;
+  console.log(this.dto)
+},
+(error:any) => console.log(error)); 
+}
+getUniteById(Id:any){
+  this.dc.getUniteById(Id).subscribe( (data:any) =>{
+  this.dto=data;
+  console.log(this.dto)
+},
+(error:any) => console.log(error)); 
+}
+getTypeCreditById(Id:any){
+  this.dc.getTypeCreditById(Id).subscribe( (data:any) =>{
+  this.typeCredit=data;
+  this.form.patchValue({
+    type:this.typeCredit.typeCredit
+});
+},
+(error:any) => console.log(error)); 
+}
+getUniteCreditById(Id:any){
+  this.dc.getUniteCreditById(Id).subscribe( (data:any) =>{
+  this.Unite=data;
+  this.form.patchValue({
+    unite:this.Unite.unite
+});},
+(error:any) => console.log(error)); 
+}
 hideDialog() {
   this.visible = false;
 }
 showDialog(dto:any) {
         this.visible = true;
-        console.log(dto)
+        this.getTypeCreditById(dto.creditDto.type);
         this.getSituationFamilialeByCin(dto);
+        //this.getUniteById(dto.creditDto.unite);
+        this.getTypeCreditById(dto.creditDto.type);
+        this.getUniteCreditById(dto.creditDto.unite)
         this.form.patchValue({
             nom:dto.clientDto.nom,
             prenom:dto.clientDto.prenom,
@@ -59,16 +97,16 @@ deleteDemande(id:string) {
             this.ngOnInit();
             this.getDemandeCredit()
         },
-(error:any) => console.log(error));  }
-
+(error:any) => console.log(error));  
+}
 acceptCredit(id:string) {
   this.dc.acceptCredit(id).subscribe( (data:any) =>{
      // this.ngOnInit();
       this.getDemandeCredit()
 
   },
-(error:any) => console.log(error));  }
-
+(error:any) => console.log(error));  
+}
 getSituationFamilialeByCin(dto:any) {
   this.dc.getSituationFamilialeByCin(dto.clientDto.cin).subscribe(
     (data: SituationFamiliale) => {
@@ -80,12 +118,9 @@ getSituationFamilialeByCin(dto:any) {
     (error: any) => console.log(error)
   );
 }
-
-  ngOnInit(): void {
+ngOnInit(): void {
       this.form = this.fb.group({
-        cin: [
-          { value: '', disabled: true }, [Validators.required],
-        ],
+        cin: [{ value: '', disabled: true }, [Validators.required], ],
         nom: [{ value: '', disabled: true }, Validators.required],
         prenom: [{ value: '', disabled: true }, Validators.required],
         situationFamiliale: [{ value: '', disabled: true }, Validators.required],
@@ -101,5 +136,5 @@ getSituationFamilialeByCin(dto:any) {
         dateNs:  [{ value: '', disabled: true }, Validators.required], 
       });
     this. getDemandeCredit();
-  }
+}
 }

@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Garantie } from '../../../models/Garantie';
-import { CreditDto } from 'src/app/models/Dto';
+import { CreditDto, Dto } from 'src/app/models/Dto';
 
 @Injectable({
   providedIn: 'root'
@@ -43,7 +43,6 @@ export class DemandeCreditService {
 
   addGarantie(garantie: Garantie){
     return this._http.post<Garantie>('http://localhost:8081/Garantie/postGarantie',garantie);
-
   }
   getGarantieParCredit(creditId:String): Observable<any> { 
     return this.http.get('http://localhost:8081/Garantie/getgarantiesByCreditId/'+creditId);
@@ -76,6 +75,16 @@ export class DemandeCreditService {
   }
 
   getUniteById(Id:String): Observable<any> { 
+    return this.http.get('http://localhost:8081/Unite/ '+Id );
+  }
+
+  getTypeCreditById(Id:String): Observable<any> { 
+    return this.http.get('http://localhost:8081/TypeCredit/'+Id );
+  }
+  getUniteCreditById(Id:String): Observable<any> { 
     return this.http.get('http://localhost:8081/Unite/'+Id );
+  }
+  addDemande(demande: CreditDto){
+    return this._http.post<CreditDto>('http://localhost:8081/Credit/postCredit',demande);
   }
 }

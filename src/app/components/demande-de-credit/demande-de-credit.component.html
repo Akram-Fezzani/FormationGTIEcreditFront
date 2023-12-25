@@ -219,14 +219,18 @@
             </span>        </div>
 
     </p-fieldset>
-    <p-button     type="button"
+    <div style="margin-left: 45%; margin-top: 1.9%">
+    <p-button     
+    type="button"
     (click)="onReset()"
-    class="btn btn-warning float-right">
+    class="btn p-button-warning float-right">
     Reset
     </p-button>
-    <p-button type="submit" label="Register" severity="success" (onClick)="onSubmit()"></p-button>
+
+    <p-button  label="Register" severity="success" (onClick)="changepage()"></p-button>
+</div>
+
 </form>
 </p-fieldset>
-<app-consultation-credit></app-consultation-credit>
 
 
