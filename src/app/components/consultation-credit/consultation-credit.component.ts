@@ -1,15 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
-;
-import { Nature } from 'src/app/models/Nature';
-import { Devise } from 'src/app/models/Devise';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { TypeGarantie } from 'src/app/models/TypeGarantie';
 import { MessageService, SelectItem } from 'primeng/api';
-import { Garantie } from 'src/app/models/Garantie';
 import { DemandeCreditService } from '../service/DemandeService/demande-credit.service';
-//import { GarantieDto } from '../models/Dto';
-import { GarantieDialogComponent } from '../garantie-dialog/garantie-dialog.component';
 import { SituationFamiliale } from '../../models/SituationFamiliale';
 import { Unite } from '../../models/Unite';
 import { TypeCredit } from '../../models/TypeCredit';
@@ -38,10 +31,13 @@ export class ConsultationCreditComponent implements OnInit {
 getDemandeCredit(){
         this.dc.getDemandeCredit().subscribe( (data:GarantieDto[]) =>{
         this.dto=data;
-        
-        console.log(this.dto)
     },
     (error:any) => console.log(error)); 
+}
+generatePdf(Id:any){
+  this.dc.generatePdf(Id).subscribe( (data:any) =>{
+},
+(error:any) => console.log(error)); 
 }
 getTypeCresitById(Id:any){
   this.dc.getTypeCresitById(Id).subscribe( (data:any) =>{
@@ -124,7 +120,6 @@ getSituationFamilialeByCin(dto:any) {
 }
 changepage(){
   this._router.navigate(['/demande']);
-
 }
 ngOnInit(): void {
       this.form = this.fb.group({

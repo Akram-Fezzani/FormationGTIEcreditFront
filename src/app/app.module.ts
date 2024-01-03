@@ -25,8 +25,8 @@ import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api'; // Import MessageService here
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { CheckboxModule } from 'primeng/checkbox';
-import { ConsultationCreditComponent } from './components/consultation-credit/consultation-credit.component';
 import { DividerModule } from 'primeng/divider';
+import { ConsultationCreditComponent } from './components/consultation-credit/consultation-credit.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +35,6 @@ import { DividerModule } from 'primeng/divider';
     TableComponent,
     GarantieDialogComponent,
     ConsultationCreditComponent,
-    
   ],
   imports: [
     BrowserModule,
@@ -45,7 +44,6 @@ import { DividerModule } from 'primeng/divider';
     RadioButtonModule,
     ChartModule,
     DividerModule,
-    //FormsModule,
     ReactiveFormsModule,
     InputTextModule,
     ToastModule,

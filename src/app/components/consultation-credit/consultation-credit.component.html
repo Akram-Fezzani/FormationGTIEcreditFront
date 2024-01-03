@@ -19,9 +19,10 @@
             <td>{{ dto.creditDto.display }}</td>
             <td>{{ dto.creditDto.dateDemande | date:'dd-MM-yyyy'}}</td>
             <td>
-                <button *ngIf="dto.creditDto.status==true" pButton pRipple icon="pi pi-eye"  class="p-button-rounded p-button-warning mr-2" (click)="showDialog(dto)" ></button>
+                <button *ngIf="dto.creditDto.status==true"  pButton pRipple icon="pi pi-eye"  class="p-button-rounded p-button-warning mr-2" (click)="showDialog(dto)" ></button>
+                <button *ngIf="dto.creditDto.status==true"  pButton pRipple icon="pi pi-download"  class="p-button-rounded p-button-warn mr-2" (click)="generatePdf(dto.creditDto.id)" ></button>
                 <button *ngIf="dto.creditDto.status==false" pButton pRipple icon="pi pi-check"  class="p-button-rounded p-button-success mr-2" (click)="acceptCredit(dto.creditDto.id)"></button>
-                <button  pButton pRipple icon="pi pi-ban"class="p-button-rounded p-button-danger"  (click)="deleteDemande(dto.creditDto.id)"></button>
+                <button  *ngIf="dto.creditDto.status==false" pButton pRipple icon="pi pi-ban"class="p-button-rounded p-button-danger"  (click)="deleteDemande(dto.creditDto.id)"></button>
             </td>
         </tr>
     </ng-template>

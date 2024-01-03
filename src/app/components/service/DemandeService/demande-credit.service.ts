@@ -73,4 +73,7 @@ export class DemandeCreditService {
   addDemande(demande: CreditDto){
     return this._http.post<CreditDto>('http://localhost:8081/Credit/postCredit',demande);
   }
+  generatePdf(Id:String): Observable<any> { 
+    return this.http.get('http://localhost:8081/Credit/generateReport/'+Id );
+  }
 }

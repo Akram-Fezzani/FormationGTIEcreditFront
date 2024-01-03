@@ -47,6 +47,19 @@ export class DemandeDeCreditComponent implements OnInit {
     private fb: FormBuilder
   ) {}
 
+  private handleError(error:any,msg:string): void {
+    switch (error.status) {
+      case 401:
+      console.log("error 401 :Unauthorized")  
+      break;
+      case 404:
+      console.log("error 404 "+msg)     
+      break;
+      default:
+        console.log("********error********")     
+        break;
+    }
+  }
 postDto(){
   const garantieData = this.form.value;
   this.dto = this.dto || {};
@@ -78,7 +91,8 @@ getClient() {
                   this.getCompteByClientCin();
                   this.getSituationFamilialeByCin();
                 },
-                (error: any) => console.log(error)
+                (error: any) => 
+                  this.handleError(error,"user not found")
               );
 }
 getSituationFamilialeByCin() {
@@ -88,7 +102,7 @@ getSituationFamilialeByCin() {
                   situationFamiliale: data.situationf,
                 });
               },
-              (error: any) => console.log(error)
+              (error: any) =>this.handleError(error,"Situation Familiale by cin not found")
             );
 }
 getCompteByClientCin() {
@@ -101,7 +115,7 @@ getCompteByClientCin() {
                   value: comptes.numcompte,
                 }));
               },
-              (error: any) => console.log(error)
+              (error: any) =>this.handleError(error,"compte not found")
             );
 }
 onSelectAccount(compte: Compte) {
@@ -120,14 +134,14 @@ getTypeCredit() {
                 value: types.typeCredit,
               }));
             },
-            (error: any) => console.log(error)
+            (error: any) => this.handleError(error,"Type Credit not found")
           );
 }
 getPiece(){
           this.dc.getPiece().subscribe( (data:Piece[]) =>{
               this.piece=data;
           },
-          (error:any) => console.log(error)); 
+          (error:any) => this.handleError(error,"piece not found")); 
 }
 getUnite() {
         this.dc.getUnite().subscribe(
@@ -138,7 +152,7 @@ getUnite() {
               value: unites.unite,
             }));
           },
-          (error: any) => console.log(error)
+          (error: any) => this.handleError(error,"unite not found")
         );
 }
 onSubmit(): void {
@@ -147,7 +161,6 @@ onSubmit(): void {
         if (this.form.invalid) {
           return;
         }
-        console.log(JSON.stringify(this.form.value, null, 2));
 }
 get f(): { [key: string]: AbstractControl } {
         return this.form.controls;

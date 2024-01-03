@@ -37,6 +37,8 @@ export class CreditDto {
     status!:boolean;
     compteId!:string;
     display!:string;
+    montantEcheance!:string;
+    taux!:string;
 }
 
 

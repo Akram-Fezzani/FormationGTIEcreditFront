@@ -1,8 +1,8 @@
-<p-fieldset>
-    <ng-template pTemplate="header">
-        <div class="flex align-items-center text-primary">
-            <span class="pi pi-user mr-2"></span>
-            <span class="font-bold text-lg">Demande de credit</span>
+<p-fieldset >
+    <ng-template pTemplate="header" >
+        <div class="flex align-items-center text-primary" >
+            <span class="pi pi-user mr-2" style="color: red;"></span>
+            <span class="font-bold text-lg" style="color: red; ">Demande de credit</span>
         </div>     
     </ng-template>
     <form [formGroup]="form" (ngSubmit)="onSubmit()">
@@ -147,9 +147,7 @@
                         />
                         <label htmlFor="echeance">Nbr d'echeance</label>
                     </span>
-            </div>
-
-
+        </div>
     </p-fieldset>
     <p-fieldset legend="Granties proposées" [toggleable]="true"[collapsed]="true"> 
         <div style="margin-left: 65%; margin-top: 2cm;">
@@ -213,20 +211,17 @@
                 formControlName="Observation" 
                 ></textarea>
                 <label htmlFor="Observation">Observation</label>
-            </span>        </div>
-
+            </span>        
+        </div>
     </p-fieldset>
-    <div style="margin-left: 45%; margin-top: 1.9%">
-    <p-button     
-    type="button"
-    (click)="onReset()"
-    class="btn p-button-warning float-right">
-    Reset
-    </p-button>
+    <div style="margin-left: 38%; margin-top: 1.9%">
+    <button type="button" pButton pRipple label="Reset" class="p-button-danger rounded-button"(click)="onReset()"></button>
+    <div style="margin-left: 15%; margin-top: -3.8%">
+    <button type="submit" pButton pRipple label="Ajouter" class="p-button-success rounded-button"(onClick)="postDto()"></button>
 
-    <p-button  label="Register" severity="success" (onClick)="postDto()"></p-button>
 </div>
 
+</div>
 </form>
 </p-fieldset>
 

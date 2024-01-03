@@ -29,18 +29,17 @@ export class TableComponent implements OnInit {
   typeGar:any
   listData!: SelectItem[];
   garantie: Garantie=new Garantie();
-getTypeGaranties(){
+  getGarantieParCredit(){
         this.dc.getGarantieParCredit("5").subscribe( (data:GarantieDto[]) =>{
         this.dto=data;
-
+console.log(this.dto)
     },
     (error:any) => console.log(error)); 
 }
 getTypeGarantie(){
-      this.dc.getTypeGarantie().subscribe( (data:TypeGarantie[]) =>{
+  this.dc.getTypeGarantie().subscribe( (data:TypeGarantie[]) =>{
       this.typeGars=data;
-      this.listData = data.map(typeGars => ({label: typeGars.id, value: typeGars.typeGarantie}));
-
+     this.listData = data.map(typeGars => ({label: typeGars.id, value: typeGars.typeGarantie}));
   },
   (error:any) => console.log(error)); 
 }
@@ -67,10 +66,12 @@ UpdateGarantie(){
   this.garantie.type=garantieData.typeGar.id;
   this.garantie.id=garantieData.id
   this.garantie.creditId=5
+  console.log(garantieData)
   this.dc.updateGarantie(this.garantie,this.garantie.id).subscribe( (data:any) =>{
     this.hideDialog();
     this.showToast();
-    this.getTypeGaranties();
+    this.getGarantieParCredit();
+    this.ngOnInit();
     },
   (error:any) => console.log(error)); 
 }
@@ -96,7 +97,6 @@ openDialog() {
       data: { display: true }, 
     });
     ref.onClose.subscribe((result: any) => {
-        console.log('Dialog is about to close with result:', result);
     });
 }
 hideDialog() {
@@ -106,32 +106,22 @@ showDialog(dto:any) {
         this.visible = true;
         this.garantieForm.patchValue({
             valeur: dto.valeur,
-            typeGar: dto.typeGar,
+            typeGar: dto.typeGarantie,
             nature: dto.nature,
             devise:dto.devise,
             id:dto.idGarantie
         });
 }
 ngOnInit(): void {
-    this.garantieForm = this.fb.group({
-      valeur: [
-        '', 
-        ],   
-      typeGar: [
-        '',
-        ],
-      nature: [
-        '',
-        ],
-      devise: [
-          '',
-          ],
-      id: [
-        '',
-        ],
-      });
+  this.garantieForm = this.fb.group({
+    valeur: [''],
+    typeGar: [''],
+    nature: [''],
+    devise: [''],
+    id: [''],
+});
     this. getTypeGarantie();
-    this. getTypeGaranties();
+    this. getGarantieParCredit();
     this.getNature();
     this.getDevise();
 }
